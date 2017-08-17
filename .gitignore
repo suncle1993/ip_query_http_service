@@ -1,0 +1,12 @@
+.idea
+.python-version
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+*.log
+logs
+.vscode
+mydata4vipday2.dat
