@@ -234,7 +234,7 @@ if __name__ == "__main__":
     print ip_tree.lookup('123.12.23.45')
 ```
 
-#http请求
+# http请求
 
 提供ip查询服务的GET请求和POST请求
 
@@ -456,13 +456,13 @@ apt-get install apache2-utils
 测试GET请求
 
 ```shell
-ab -r -t 120 -c 5000 http://127.0.0.1:8080/api/ip_query?ip=165.118.213.9
+ab -r -t 120 -c 5000 http://121.40.225.116:8080/api/ip_query?ip=165.118.213.9
 ```
 
 测试POST请求
 
 ```shell
-ab -r -t 120 -c 5000 -p /tmp/post_data.txt -T 'application/json' http://127.0.0.1:8080/api/ip_query
+ab -r -t 120 -c 5000 -p /tmp/post_data.txt -T 'application/json' http://121.40.225.116:8080/api/ip_query
 ```
 
 其中`/tmp/post_data.txt`文件的内容为待发送的-T指定格式的数据，在此处为json格式
@@ -500,13 +500,13 @@ cp wrk /usr/sbin
 测试GET请求
 
 ```shell
-wrk -t10 -c5000 -d120s --latency http://127.0.0.1:8080/api/ip_query?ip=165.118.213.9
+wrk -t10 -c5000 -d120s --latency http://121.40.225.116:8080/api/ip_query?ip=165.118.213.9
 ```
 
 测试POST请求
 
 ```shell
-wrk -t50 -c5000 -d120s --latency -s /tmp/wrk_post.lua http://127.0.0.1:8080
+wrk -t50 -c5000 -d120s --latency -s /tmp/wrk_post.lua http://121.40.225.116:8080
 ```
 
 其中`/tmp/wrk_post.lua`文件的内容为待加载的lua脚本，指定post的path，header，body
@@ -539,8 +539,8 @@ jmeter的入门级使用也可以参考最后面的参考资料部分：**使用
 **wrk GET请求压测结果**
 
 ```
-root@ubuntu:/tmp# wrk -t10 -c5000 -d60s --latency http://127.0.0.1:8080/api/ip_query?ip=165.118.213.9
-Running 1m test @ http://127.0.0.1:8080/api/ip_query?ip=165.118.213.9
+root@ubuntu:/tmp# wrk -t10 -c5000 -d60s --latency http://121.40.225.116:8080/api/ip_query?ip=165.118.213.9
+Running 1m test @ http://121.40.225.116:8080/api/ip_query?ip=165.118.213.9
   10 threads and 5000 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   897.19ms  322.83ms   1.99s    70.52%
@@ -559,12 +559,12 @@ Transfer/sec:    869.53KB
 **ab GET请求压测结果**
 
 ```
-root@ubuntu:/tmp# ab -r -t 60 -c 5000 http://127.0.0.1:8080/api/ip_query?ip=165.118.213.9
+root@ubuntu:/tmp# ab -r -t 60 -c 5000 http://121.40.225.116:8080/api/ip_query?ip=165.118.213.9
 This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking 127.0.0.1 (be patient)
+Benchmarking 121.40.225.116 (be patient)
 Completed 5000 requests
 Completed 10000 requests
 Completed 15000 requests
@@ -579,7 +579,7 @@ Finished 50000 requests
 
 
 Server Software:        gunicorn/19.7.1
-Server Hostname:        127.0.0.1
+Server Hostname:        121.40.225.116
 Server Port:            8080
 
 Document Path:          /api/ip_query?ip=165.118.213.9
