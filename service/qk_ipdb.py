@@ -166,16 +166,25 @@ class IpTree:
     def lookup1(self, net_ip, (net_ip1, content, lefts, rights)):
         if net_ip < net_ip1:
             if lefts is None:
-                return content
+                return {'country': content[0], 'country_code': content[1],
+                        'province': content[2], 'province_code': content[3],
+                        'city': content[4], 'city_code': content[5],
+                        'organize': content[6], 'carrier': content[7]}
             else:
                 return self.lookup1(net_ip, lefts)
         elif net_ip > net_ip1:
             if rights is None:
-                return content
+                return {'country': content[0], 'country_code': content[1],
+                        'province': content[2], 'province_code': content[3],
+                        'city': content[4], 'city_code': content[5],
+                        'organize': content[6], 'carrier': content[7]}
             else:
                 return self.lookup1(net_ip, rights)
         else:
-            return content
+            return {'country': content[0], 'country_code': content[1],
+                    'province': content[2], 'province_code': content[3],
+                    'city': content[4], 'city_code': content[5],
+                    'organize': content[6], 'carrier': content[7]}
 
     def generate_tree(self, ip_list):
         length = len(ip_list)
