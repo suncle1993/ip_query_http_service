@@ -18,6 +18,7 @@ from service.error_handler import InvalidUsage
 from flask import jsonify
 from flask import request, make_response
 import re
+from service.qk_log import log_init, dlog, ilog, wlog, elog
 
 
 ip_app = Flask(__name__)
@@ -29,6 +30,7 @@ ip_tree.load_china_province_codes('service' + "/doc/china_province_code.txt")
 ip_tree.load_china_city_codes('service' + "/doc/china_city_code.txt")
 ip_tree.loadfile('service' + "/doc/mydata4vipday2.dat")
 pattern = re.compile('^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
+log_init()
 
 
 def is_ip(s):
@@ -50,16 +52,21 @@ def ip_query():
     try:
         ip = request.json['ip']
     except KeyError as e:
+        wlog('status_code: {} .bad request: no key ip in your request json body. {}'.format(400, e))
         raise InvalidUsage('bad request: no key ip in your request json body. {}'.format(e), status_code=400)
     if not is_ip(ip):
+        wlog('status_code: {} .{} is not a ip'.format(400, ip))
         raise InvalidUsage('{} is not a ip'.format(ip), status_code=400)
     try:
         res = ip_tree.lookup(ip)
     except Exception as e:
+        elog('status_code: {} .internal error: {}'.format(500, e))
         raise InvalidUsage('internal error: {}'.format(e), status_code=500)
     if res is not None:
+        ilog('ip: res => {}: {}'.format(ip, res))
         return jsonify(res)
     else:
+        wlog('status_code: {} .no ip info in ip db for ip: {}'.format(501, ip))
         raise InvalidUsage('no ip info in ip db for ip: {}'.format(ip), status_code=501)
 
 
@@ -68,16 +75,21 @@ def ip_query_get():
     try:
         ip = request.values.get('ip')
     except ValueError as e:
+        wlog('status_code: {} .bad request: no param ip in your request. {}'.format(400, e))
         raise InvalidUsage('bad request: no param ip in your request. {}'.format(e), status_code=400)
     if not is_ip(ip):
+        wlog('status_code: {} .{} is not a ip'.format(400, ip))
         raise InvalidUsage('{} is not a ip'.format(ip), status_code=400)
     try:
         res = ip_tree.lookup(ip)
     except Exception as e:
+        elog('status_code: {} .internal error: {}'.format(500, e))
         raise InvalidUsage('internal error: {}'.format(e), status_code=500)
     if res is not None:
+        ilog('ip: res => {}: {}'.format(ip, res))
         return jsonify(res)
     else:
+        wlog('status_code: {} .no ip info in ip db for ip: {}'.format(501, ip))
         raise InvalidUsage('no ip info in ip db for ip: {}'.format(ip), status_code=501)
 
 
