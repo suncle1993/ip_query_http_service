@@ -14,5 +14,5 @@ meld3==1.0.2
 msgpack-python==0.4.8
 requests==2.18.3
 supervisor==3.3.3
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.12.2
