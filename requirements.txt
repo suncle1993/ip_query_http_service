@@ -15,4 +15,4 @@ msgpack-python==0.4.8
 requests==2.18.3
 supervisor==3.3.3
 urllib3==1.26.5
-Werkzeug==0.15.3
+Werkzeug==0.15.5
